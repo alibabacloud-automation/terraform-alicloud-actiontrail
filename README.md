@@ -8,6 +8,8 @@ These types of resources are supported:
 
 * [ActionTrail](https://www.terraform.io/docs/providers/alicloud/r/actiontrail.html)
 
+**NOTE:** Currently, one alibaba cloud account only can create one actiontrail instance.
+
 ----------------------
 
 Usage
