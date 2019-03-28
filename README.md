@@ -42,7 +42,7 @@ module "actiontrail" {
     create_actiontrail_default_role = true
 }
 ```
--> NOTE: If the ram role has been created, please ignore it and the module will fetch the existed and grant to the new ationtrail.
+**NOTE**: If the ram role has been created, please ignore it and the module will fetch the existed and grant to the new ationtrail.
 
 Create a new SLS project and use it to store actiontrail logs by specifying `log_project_name`:
 
