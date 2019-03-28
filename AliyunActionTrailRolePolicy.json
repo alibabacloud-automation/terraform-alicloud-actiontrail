@@ -1,0 +1,22 @@
+{
+  "Version": "1",
+  "Statement": [
+    {
+      "Action": [
+        "oss:ListObjects",
+        "oss:PutObject",
+        "oss:GetBucketLocation"
+      ],
+      "Resource": "*",
+      "Effect": "Allow"
+    },
+    {
+      "Action": [
+        "log:PostLogStoreLogs",
+        "log:CreateLogstore"
+      ],
+      "Resource": "*",
+      "Effect": "Allow"
+    }
+  ]
+}
