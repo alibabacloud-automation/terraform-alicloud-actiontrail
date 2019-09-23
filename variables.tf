@@ -1,3 +1,8 @@
+variable "region" {
+  description = "The region used to launch this module resources."
+  default     = ""
+}
+
 variable "name" {
   description = "Name used on ActionTrail"
 }
@@ -45,3 +50,4 @@ variable "oss_key_prefix" {
   description = "The prefix of the specified OSS bucket name. Default to empty."
   default     = ""
 }
+
