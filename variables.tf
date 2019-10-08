@@ -3,7 +3,7 @@ variable "region" {
   default     = ""
 }
 
-variable "name" {
+variable "this_module_name" {
   description = "Name used on ActionTrail"
 }
 

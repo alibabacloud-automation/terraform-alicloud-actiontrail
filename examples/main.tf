@@ -22,8 +22,8 @@ module "actiontrail" {
   # If the below module source is indeed a relative local path, add ./ to the
   # start of the source string. If that is not the case, then leave it as-is
   # and remove this TODO comment.
-  source          = "./.."
-  name            = "main-actiontrail"
-  oss_bucket_name = module.bucket.this_oss_bucket_id
+  source           = "./.."
+  this_module_name = "main-actiontrail"
+  oss_bucket_name  = module.bucket.this_oss_bucket_id
 }
 
