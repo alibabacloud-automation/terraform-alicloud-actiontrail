@@ -32,8 +32,9 @@ resource "alicloud_ram_role_policy_attachment" "this" {
 }
 
 resource "alicloud_oss_bucket" "this" {
-  count  = var.create_oss_bucket ? 1 : 0
-  bucket = var.oss_bucket_name
+  count         = var.create_oss_bucket ? 1 : 0
+  bucket        = var.oss_bucket_name
+  force_destroy = true
 }
 
 data "alicloud_regions" "default" {
@@ -50,7 +51,7 @@ resource "alicloud_log_project" "this" {
 }
 
 resource "alicloud_actiontrail" "this" {
-  name            = var.name
+  name            = var.this_module_name
   event_rw        = var.event_rw
   oss_bucket_name = var.create_oss_bucket ? join("", alicloud_oss_bucket.this.*.id) : var.oss_bucket_name
   role_name       = var.ram_role_default_name
