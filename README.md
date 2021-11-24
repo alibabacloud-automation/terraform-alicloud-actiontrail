@@ -1,6 +1,5 @@
 Terraform module which creates ActionTrail on Alibaba Cloud  
 terraform-alicloud-actiontrail
-====================================================================
 
 Terraform module which creates a new action trail on Alibaba Cloud.
 
@@ -82,9 +81,76 @@ module "actiontrail" {
 | this_oss_bucket_id | The OSS bucket id used to launch actiontrail |
 | this_log_project_id | The log project id used to launch actiontrail |
 
+## Notes
+From the version v1.2.0, the module has removed the following `provider` setting:
+
+```hcl
+provider "alicloud" {
+   version              = ">=1.56.0"
+   region               = var.region != "" ? var.region : null
+   configuration_source = "terraform-alicloud-modules/actiontrail"
+}
+```
+
+If you still want to use the `provider` setting to apply this module, you can specify a supported version, like 1.1.0:
+
+```hcl
+module "actiontrail" {
+   source          = "terraform-alicloud-modules/actiontrail/alicloud"
+   version         = "1.1.0"
+   region          = "cn-beijing"
+   name            = "main-actiontrail"
+   oss_bucket_name = "oss-bucket-for-actiontrail"
+   // ...
+}
+```
+
+If you want to upgrade the module to 1.2.0 or higher in-place, you can define a provider which same region with
+previous region:
+
+```hcl
+provider "alicloud" {
+   region = "cn-beijing"
+}
+module "actiontrail" {
+   source          = "terraform-alicloud-modules/actiontrail/alicloud"
+   name            = "main-actiontrail"
+   oss_bucket_name = "oss-bucket-for-actiontrail"
+   // ...
+}
+```
+or specify an alias provider with a defined region to the module using `providers`:
+
+```hcl
+provider "alicloud" {
+   region = "cn-beijing"
+   alias  = "bj"
+}
+module "actiontrail" {
+   source          = "terraform-alicloud-modules/actiontrail/alicloud"
+   providers       = {
+      alicloud = alicloud.bj
+   }
+   name            = "main-actiontrail"
+   oss_bucket_name = "oss-bucket-for-actiontrail"
+   // ...
+}
+```
+
+and then run `terraform init` and `terraform apply` to make the defined provider effect to the existing module state.
+
+More details see [How to use provider in the module](https://www.terraform.io/docs/language/modules/develop/providers.html#passing-providers-explicitly)
+
+## Terraform versions
+
+| Name | Version |
+|------|---------|
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 0.12.0 |
+| <a name="requirement_alicloud"></a> [alicloud](#requirement\_alicloud) | >= 1.56.0 |
+
 Authors
 -------
-Created and maintained by He Guimin(@xiaozhu36, heguimin36@163.com)
+Created and maintained by Alibaba Cloud Terraform Team(terraform@alibabacloud.com)
 
 Reference
 ---------
