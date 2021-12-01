@@ -22,7 +22,7 @@ output "this_log_project_arn" {
 }
 
 output "this_log_project_name" {
-  value = alicloud_log_project.this.0.name
+  value = concat(alicloud_log_project.this.*.name, [[]])[0]
 }
 
 output "this_event_rw" {
