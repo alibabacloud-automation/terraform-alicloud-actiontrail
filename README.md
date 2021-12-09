@@ -60,8 +60,6 @@ module "actiontrail" {
 
 | Name | Description | Type | Default | Required |
 |------|-------------|:----:|:-----:|:-----:|
-| Name | Description | Type | Default | Required |
-|------|-------------|:----:|:-----:|:-----:|
 | name | Name used on ActionTrail | string | - | yes |
 | oss_bucket_name | A name of OSS bucket used to the trail delivers logs | string | - | yes |
 | create_oss_bucket | Whether to create a new OSS bucket based on variable oss_bucket_name | bool | false | no |
