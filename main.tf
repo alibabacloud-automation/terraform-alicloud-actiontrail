@@ -1,9 +1,3 @@
-provider "alicloud" {
-  version              = ">=1.56.0"
-  region               = var.region != "" ? var.region : null
-  configuration_source = "terraform-alicloud-modules/actiontrail"
-}
-
 data "alicloud_ram_roles" "default" {
   name_regex = "^${var.ram_role_default_name}$"
 }

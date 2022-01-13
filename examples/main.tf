@@ -1,5 +1,6 @@
 provider "alicloud" {
   region = "cn-shanghai"
+  profile = "default"
 }
 
 ##################################################
@@ -7,7 +8,7 @@ provider "alicloud" {
 ##################################################
 module "bucket" {
   source      = "terraform-alicloud-modules/oss-bucket/alicloud"
-  bucket_name = "complete-actiontrail-demo"
+  bucket_name = "complete-actiontrail-test"
 }
 
 ################################################
