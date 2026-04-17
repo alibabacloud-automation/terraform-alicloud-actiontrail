@@ -1,8 +1,3 @@
-variable "region" {
-  description = "(Deprecated from version 1.2.0) The region used to launch this module resources."
-  type        = string
-  default     = ""
-}
 
 #alicloud_ram_role
 variable "create_actiontrail_default_role" {

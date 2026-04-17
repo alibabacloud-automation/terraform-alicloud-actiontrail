@@ -64,29 +64,6 @@ module "actiontrail" {
 }
 ```
 
-## Inputs
-
-| Name | Description | Type | Default | Required |
-|------|-------------|:----:|:-----:|:-----:|
-| name | Name used on ActionTrail | string | - | yes |
-| oss_bucket_name | A name of OSS bucket used to the trail delivers logs | string | - | yes |
-| create_oss_bucket | Whether to create a new OSS bucket based on variable oss_bucket_name | bool | false | no |
-| create_actiontrail_default_role | Create a default ram role used to access OSS and SLS before launching a new CreateTrail. Default using the existed ram role | bool | false | no |
-| ram_role_default_name | A default ram role used to grant ActionTrail to access OSS and SLS. It is valid when create_actiontrail_default_role is true. The value should be equals to the name of the file AliyunActionTrailDefaultRole.json | string | AliyunActionTrailDefaultRole | no |
-| ram_policy_default_name | A default ram policy used to ActionTrail default grant policy. It is valid when create_actiontrail_default_role is true. The value should be equals to the name of the file AliyunActionTrailRolePolicy.json | string | AliyunActionTrailRolePolicy | no |
-| log_project_arn | The unique ARN of the Log Service project used to the trail | string | "" | no |
-| log_project_name | A name used to create a new log project when log_project_arn is not set | string | "" | no |
-| event_rw | Indicates whether the event is a read or a write event. Valid values: Read, Write, and All | string | Write | no |
-| oss_key_prefix | The prefix of the specified OSS bucket name | string | "" | no |
-
-## Outputs
-
-| Name | Description |
-|------|-------------|
-| this_actiontrail_id | The actiontrail ID |
-| this_oss_bucket_id | The OSS bucket id used to launch actiontrail |
-| this_log_project_id | The log project id used to launch actiontrail |
-
 ## Notes
 From the version v1.2.0, the module has removed the following `provider` setting:
 
@@ -147,12 +124,81 @@ and then run `terraform init` and `terraform apply` to make the defined provider
 
 More details see [How to use provider in the module](https://www.terraform.io/docs/language/modules/develop/providers.html#passing-providers-explicitly)
 
-## Terraform versions
+
+<!-- BEGIN_TF_DOCS -->
+## Requirements
 
 | Name | Version |
 |------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 0.13.0 |
-| <a name="requirement_alicloud"></a> [alicloud](#requirement\_alicloud) | >= 1.56.0 |
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 0.13 |
+| <a name="requirement_alicloud"></a> [alicloud](#requirement\_alicloud) | >= 1.212.0 |
+
+## Providers
+
+| Name | Version |
+|------|---------|
+| <a name="provider_alicloud"></a> [alicloud](#provider\_alicloud) | >= 1.212.0 |
+
+## Modules
+
+No modules.
+
+## Resources
+
+| Name | Type |
+|------|------|
+| [alicloud_actiontrail_trail.this](https://registry.terraform.io/providers/aliyun/alicloud/latest/docs/resources/actiontrail_trail) | resource |
+| [alicloud_log_project.this](https://registry.terraform.io/providers/aliyun/alicloud/latest/docs/resources/log_project) | resource |
+| [alicloud_oss_bucket.this](https://registry.terraform.io/providers/aliyun/alicloud/latest/docs/resources/oss_bucket) | resource |
+| [alicloud_ram_policy.this](https://registry.terraform.io/providers/aliyun/alicloud/latest/docs/resources/ram_policy) | resource |
+| [alicloud_ram_role.this](https://registry.terraform.io/providers/aliyun/alicloud/latest/docs/resources/ram_role) | resource |
+| [alicloud_ram_role_policy_attachment.this](https://registry.terraform.io/providers/aliyun/alicloud/latest/docs/resources/ram_role_policy_attachment) | resource |
+| [alicloud_account.default](https://registry.terraform.io/providers/aliyun/alicloud/latest/docs/data-sources/account) | data source |
+| [alicloud_ram_roles.default](https://registry.terraform.io/providers/aliyun/alicloud/latest/docs/data-sources/ram_roles) | data source |
+| [alicloud_regions.default](https://registry.terraform.io/providers/aliyun/alicloud/latest/docs/data-sources/regions) | data source |
+
+## Inputs
+
+| Name | Description | Type | Default | Required |
+|------|-------------|------|---------|:--------:|
+| <a name="input_create_actiontrail_default_role"></a> [create\_actiontrail\_default\_role](#input\_create\_actiontrail\_default\_role) | Create a default ram role used to access OSS and SLS before launching a new CreateTrail. Default using the existed ram role. | `bool` | `false` | no |
+| <a name="input_create_actiontrail_trail"></a> [create\_actiontrail\_trail](#input\_create\_actiontrail\_trail) | Whether to create a new actiontrail trail. | `bool` | `false` | no |
+| <a name="input_create_log_project"></a> [create\_log\_project](#input\_create\_log\_project) | Whether to create a new log project. | `bool` | `false` | no |
+| <a name="input_create_oss_bucket"></a> [create\_oss\_bucket](#input\_create\_oss\_bucket) | Whether to create a new OSS bucket based on variable oss\_bucket\_name. | `bool` | `false` | no |
+| <a name="input_event_rw"></a> [event\_rw](#input\_event\_rw) | Indicates whether the event is a read or a write event. Valid values: Read, Write, and All. Default value: Write. | `string` | `"Write"` | no |
+| <a name="input_force_destroy"></a> [force\_destroy](#input\_force\_destroy) | A boolean that indicates all objects should be deleted from the bucket so that the bucket can be destroyed without error. | `bool` | `true` | no |
+| <a name="input_log_project_arn"></a> [log\_project\_arn](#input\_log\_project\_arn) | The unique ARN of the Log Service project used to the trail. | `string` | `""` | no |
+| <a name="input_log_project_description"></a> [log\_project\_description](#input\_log\_project\_description) | Description of the log project. | `string` | `""` | no |
+| <a name="input_log_project_name"></a> [log\_project\_name](#input\_log\_project\_name) | A name used to create a new log project when log\_project\_arn is not set. | `string` | `""` | no |
+| <a name="input_oss_bucket_name"></a> [oss\_bucket\_name](#input\_oss\_bucket\_name) | A name of OSS bucket used to the trail delivers logs. | `string` | `""` | no |
+| <a name="input_oss_key_prefix"></a> [oss\_key\_prefix](#input\_oss\_key\_prefix) | The prefix of the specified OSS bucket name. Default to empty. | `string` | `""` | no |
+| <a name="input_policy_document"></a> [policy\_document](#input\_policy\_document) | Document of the RAM policy. | `string` | `""` | no |
+| <a name="input_ram_policy_default_name"></a> [ram\_policy\_default\_name](#input\_ram\_policy\_default\_name) | A default ram policy used to ActionTrail default grant policy. It is valid when create\_actiontrail\_default\_role is true. | `string` | `""` | no |
+| <a name="input_ram_policy_description"></a> [ram\_policy\_description](#input\_ram\_policy\_description) | Description of the RAM policy. | `string` | `""` | no |
+| <a name="input_ram_policy_force"></a> [ram\_policy\_force](#input\_ram\_policy\_force) | This parameter is used for resource destroy. | `bool` | `true` | no |
+| <a name="input_ram_role_default_name"></a> [ram\_role\_default\_name](#input\_ram\_role\_default\_name) | A default ram role used to grant ActionTrail to access OSS and SLS. It is valid when create\_actiontrail\_default\_role is true. | `string` | `""` | no |
+| <a name="input_ram_role_description"></a> [ram\_role\_description](#input\_ram\_role\_description) | Description of the RAM role. | `string` | `""` | no |
+| <a name="input_ram_role_force"></a> [ram\_role\_force](#input\_ram\_role\_force) | This parameter is used for resource destroy. | `bool` | `true` | no |
+| <a name="input_role_document"></a> [role\_document](#input\_role\_document) | Authorization strategy of the RAM role. | `string` | `""` | no |
+| <a name="input_sls_write_role_arn"></a> [sls\_write\_role\_arn](#input\_sls\_write\_role\_arn) | The unique ARN of the Log Service role. | `string` | `""` | no |
+| <a name="input_this_module_name"></a> [this\_module\_name](#input\_this\_module\_name) | Name used on ActionTrail | `string` | `""` | no |
+
+## Outputs
+
+| Name | Description |
+|------|-------------|
+| <a name="output_this_actiontrail_id"></a> [this\_actiontrail\_id](#output\_this\_actiontrail\_id) | The actiontrail ID |
+| <a name="output_this_actiontrail_name"></a> [this\_actiontrail\_name](#output\_this\_actiontrail\_name) | The actiontrail name |
+| <a name="output_this_event_rw"></a> [this\_event\_rw](#output\_this\_event\_rw) | The event rw |
+| <a name="output_this_log_project_arn"></a> [this\_log\_project\_arn](#output\_this\_log\_project\_arn) | The log project arn |
+| <a name="output_this_log_project_id"></a> [this\_log\_project\_id](#output\_this\_log\_project\_id) | The log project id used to launch actiontrail |
+| <a name="output_this_log_project_name"></a> [this\_log\_project\_name](#output\_this\_log\_project\_name) | The log project name used to launch actiontrail |
+| <a name="output_this_oss_bucket_name"></a> [this\_oss\_bucket\_name](#output\_this\_oss\_bucket\_name) | The OSS bucket id used to launch actiontrail |
+| <a name="output_this_oss_key_prefix"></a> [this\_oss\_key\_prefix](#output\_this\_oss\_key\_prefix) | The oss key prefix |
+| <a name="output_this_ram_role_arn"></a> [this\_ram\_role\_arn](#output\_this\_ram\_role\_arn) | The RAM role arn used to launch actiontrail |
+| <a name="output_this_ram_role_name"></a> [this\_ram\_role\_name](#output\_this\_ram\_role\_name) | The RAM role name used to launch actiontrail |
+<!-- END_TF_DOCS -->
+
 
 Authors
 -------
