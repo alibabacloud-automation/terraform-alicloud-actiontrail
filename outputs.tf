@@ -20,7 +20,7 @@ output "this_log_project_id" {
 
 output "this_log_project_name" {
   description = "The log project name used to launch actiontrail"
-  value       = concat(alicloud_log_project.this[*].naproject_nameme, [""])[0]
+  value       = concat(alicloud_log_project.this[*].name, [""])[0]
 }
 
 output "this_actiontrail_id" {
