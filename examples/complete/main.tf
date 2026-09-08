@@ -5,6 +5,11 @@ data "alicloud_regions" "default" {
 data "alicloud_account" "default" {
 }
 
+resource "random_integer" "oss_bucket_suffix" {
+  min = 10000
+  max = 99999
+}
+
 module "ram" {
   source = "../.."
 
@@ -42,7 +47,7 @@ module "oss" {
   #alicloud_oss_bucket
   create_oss_bucket = true
 
-  oss_bucket_name = "tf-testacc-oss-2022"
+  oss_bucket_name = "tf-testacc-oss-2022-${random_integer.oss_bucket_suffix.result}"
   force_destroy   = var.force_destroy
 
   #alicloud_log_project
